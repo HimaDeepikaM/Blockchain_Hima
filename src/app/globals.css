@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 255, 0, 0; 
+  --background-start-rgb: 0,0,0; 
+  --background-end-rgb: 0, 0, 0; 
+  --background-image-url: url("./ic.png");
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 0, 0; 
+    --background-start-rgb: 255, 0, 0; 
+    --background-end-rgb: 0, 0, 0; 
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb)); 
+  background: 
+    linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0), 
+      rgb(var(--background-end-rgb)) 
+    ),
+    url('./ic.png'); 
+  background-size: cover; 
+  background-position: center;
+  background-repeat: no-repeat; 
+}
+
+@layer utilities{}
+
