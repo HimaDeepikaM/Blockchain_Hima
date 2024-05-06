@@ -2,7 +2,7 @@
 "use client"
 import React, { useState } from 'react';
 import { ethers } from "ethers";
-import { contractABI, contractAddress } from '../../../utils/address';
+import { contractABI, contractAddress } from '../../../addresses/address';
 import Link from 'next/link';
 
 const Startingpage = () => {
@@ -32,10 +32,10 @@ const Startingpage = () => {
                             className={`font-bold py-2 px-4 rounded ${defaultAccount ? 'bg-blue-0 hover:bg-blue-0' : 'bg-blue-0 hover:bg-blue-0'} text-black shadow-lg focus:shadow-outline focus:outline-none transition duration-150 ease-in-out`}>
                                 Connect to your wallet.  
                     </button>
-                    <Link href="/listingpage" passHref className="bg-blue-0 hover:bg-blue-0 text-black font-bold py-2 px-4 transition duration-150 ease-in-out text-center">
+                    <Link href="/listingitems" passHref className="bg-blue-0 hover:bg-blue-0 text-black font-bold py-2 px-4 transition duration-150 ease-in-out text-center">
                     List Icecream
                         </Link>
-                        <Link href="/buying" passHref className="bg-blue-0 hover:bg-blue-0 text-black font-bold py-2 px-4 rounded shadow-lg transition duration-150 ease-in-out text-center">
+                        <Link href="/buy_items" passHref className="bg-blue-0 hover:bg-blue-0 text-black font-bold py-2 px-4 rounded shadow-lg transition duration-150 ease-in-out text-center">
                             Buy Icecream
                         </Link>
                 </div>

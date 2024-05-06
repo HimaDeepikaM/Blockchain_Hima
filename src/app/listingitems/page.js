@@ -1,6 +1,6 @@
 "use client"
 import React, { useState, useRef } from 'react';
-import { contractABI, contractAddress } from '../../../utils/address';
+import { contractABI, contractAddress } from '../../../addresses/address';
 import { ethers } from 'ethers';
 import axios from 'axios';
 

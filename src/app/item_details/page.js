@@ -1,8 +1,8 @@
 "use client"
 import React, { useState, Suspense } from 'react';
-import { ethers } from "ethers";
-import { contractABI, contractAddress } from "../../../utils/address";
+import { contractABI, contractAddress } from "../../../addresses/address";
 import { useSearchParams } from "next/navigation";
+import { ethers } from "ethers";
 
 const Details = () => {
     const [isBuying, setIsBuying] = useState(false);
@@ -13,12 +13,13 @@ const Details = () => {
   
     const buyItem = async (id, price) => {
         if (!window.ethereum || !window.ethereum.isMetaMask) {
-            setErrorMessage('Metamask installation required.');
+            setErrorMessage('Err!!! Install Metamask Properly.');
             return;
         }
 
         setIsBuying(true);
-        setButtonText('Loading item');
+        setButtonText('in progress...');
+        { <p className="text-red-500 text-center mt-4">{transaction}</p>}
 
         try {
             const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -31,12 +32,12 @@ const Details = () => {
             setTransaction(receipt.transaction);
 
             setIsBuying(true);
-            setTimeout(() => window.location.href = '/buy', 3000);  
+            setTimeout(() => window.location.href = '/buy_items', 3000);  // Redirect after success message
         } catch (error) {
             console.error('Transaction failed:', error);
-            setErrorMessage('Transaction failed. Try again later');
+            setErrorMessage('Please try again.');
             setIsBuying(false);
-            setButtonText('Buy Ice-cream');
+            setButtonText('purchase');
         }
     };
     const SearchParamsComponent =() =>{
@@ -54,14 +55,14 @@ const Details = () => {
             <h1 className="text-3xl font-bold text-gray-800 mb-2">{title}</h1>
             <img src={`https://gateway.pinata.cloud/ipfs/${imageHash}`} alt={title} className="rounded w-full object-cover h-64 mb-2" />
             <p className="text-gray-600 mb-2">{description}</p>
-            <p className="text-xl text-gray-900 mb-4">{price} Ether</p>
+            <p className="text-xl text-gray-900 mb-4">{price} ETH</p>
             <button 
                 className={`w-full py-2 px-4 text-white font-bold rounded ${isBuying ? 'bg-gray-400' : 'bg-purple-500 hover:bg-purple-400'}`}
-                onClick={()=>buyItem(id,)} 
+                onClick={()=>buyItem(id, price)} 
                 disabled={isBuying}>
                 {buttonText}
             </button>
-            {transaction && <p className="text-red-500 text-center mt-1">Success:{transaction}</p>}
+            { <p className="text-red-500 text-center mt-4">{transaction}</p>}
         </React.Fragment>
     );
 };
@@ -81,7 +82,8 @@ return (
             <Suspense fallback={<p>Loading details...</p>}>
                 <SearchParamsComponent />   
             </Suspense>
-            {errorMessage && <p className="text-red-500 text-center mt-2">Failed to load.{errorMessage}</p>}
+            { <p className="text-red-500 text-center mt-4">{transaction}</p>}
+            {errorMessage && <p className="text-red-500 text-center mt-2">{errorMessage}</p>}
         </div>
 </div>)
 };

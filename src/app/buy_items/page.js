@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
-import { contractABI, contractAddress } from '../../../utils/address';
+import { contractABI, contractAddress } from '../../../addresses/address';
 
 const Display = () => {
     const [items, setItems] = useState([]);
