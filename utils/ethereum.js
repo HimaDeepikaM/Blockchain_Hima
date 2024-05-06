@@ -9,11 +9,11 @@ export const connectWallet = async () => {
             console.log("Connected Account:", await signer.getAddress());
             return signer;
         } catch (error) {
-            console.error("Error connecting to MetaMask:", error);
+            console.error("Could not connect to MetaMask", error);
             throw error;
         }
     } else {
         console.log('Please install MetaMask!');
-        alert('Please install MetaMask!');
+        alert('Install MetaMask');
     }
 };

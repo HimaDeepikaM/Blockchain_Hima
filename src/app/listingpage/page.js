@@ -1,24 +1,23 @@
 "use client"
 import React, { useState, useRef } from 'react';
+import { contractABI, contractAddress } from '../../../utils/address';
 import { ethers } from 'ethers';
 import axios from 'axios';
-import { contractABI, contractAddress } from '../../../utils/constants';
 
-const Listingpage = () => {
+const List = () => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
-    const [image, setImage] = useState(null);
     const [errorMessage, setErrorMessage] = useState('');
-    const [successMessage, setSuccessMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const fileInputRef = useRef(null); // Reference to the file input
+    const fileInputRef = useRef(null); 
+    const [image, setImage] = useState(null);
     const [transaction, setTransaction]=useState('');
+    const [successMessage, setSuccessMessage] = useState('');
 
     const onImageChange = (event) => {
         setImage(event.target.files[0]);
     };
-
     const uploadImageToPinata = async (file) => {
         const formData = new FormData();
         formData.append('file', file);
@@ -32,8 +31,7 @@ const Listingpage = () => {
             });
             return response.data.IpfsHash;
         } catch (error) {
-            console.error('Error uploading image: ', error);
-            setErrorMessage('Failed to upload image.');
+            setErrorMessage('Failed to upload.');
             return null;
         }
     };
@@ -41,7 +39,7 @@ const Listingpage = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         if (!window.ethereum || !window.ethereum.isMetaMask) {
-            setErrorMessage('MetaMask is not detected.');
+            setErrorMessage('MetaMask not detected. Try again');
             return;
         }
 
@@ -70,7 +68,7 @@ const Listingpage = () => {
             }
             setTimeout(() => { setSuccessMessage(''); }, 3000);
         } catch (error) {
-            console.error('Error processing transaction: ', error);
+            
             setErrorMessage('Transaction failed: ' + error.message);
         } finally {
             setIsLoading(false);
@@ -104,7 +102,7 @@ const Listingpage = () => {
                                   className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" placeholder="Item Description" required />
                     </div>
                     <div className="mb-6">
-                        <label className="block text-gray-800 font-bold mb-2" htmlFor="item-price">Price(ETH)</label>
+                        <label className="block text-gray-800 font-bold mb-2" htmlFor="item-price">Price(Ether should be less than 1)</label>
                         <input type="text" id="item-price" value={price} onChange={(e) => setPrice(e.target.value)}
                                className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" placeholder="Price in ETH" required />
                     </div>
@@ -123,4 +121,4 @@ const Listingpage = () => {
     );
 };
 
-export default Listingpage;
+export default List;
