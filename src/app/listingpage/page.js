@@ -13,7 +13,7 @@ const Listingpage = () => {
     const [successMessage, setSuccessMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const fileInputRef = useRef(null); // Reference to the file input
-    const [transactionHash, setTransactionHash]=useState('');
+    const [transaction, setTransaction]=useState('');
 
     const onImageChange = (event) => {
         setImage(event.target.files[0]);
@@ -58,6 +58,8 @@ const Listingpage = () => {
             const marketplaceContract = new ethers.Contract(contractAddress, contractABI, signer);
             const transaction = await marketplaceContract.listItem(title, description, ipfsHash, ethers.utils.parseUnits(price, 'ether'));
             await transaction.wait();
+            const receipt =await transaction.wait();
+            setTransaction(receipt.transactionHash);
             setSuccessMessage('Ice-cream added to the cart');
             setTitle('');
             setDescription('');
@@ -112,6 +114,7 @@ const Listingpage = () => {
                                 className={`shadow focus:shadow-outline focus:outline-none font-bold py-2 px-4 rounded ${isLoading ? 'bg-gray-400 hover:bg-gray-400 cursor-not-allowed' : 'bg-purple-500 hover:bg-purple-400 text-white'}`}>
                             {isLoading ? 'Submitting' : 'List Item'}
                         </button>
+                        { <p className="text-red-500 text-center mt-4">{transaction}</p>}
                     </div>
                     {errorMessage && <p className="error text-red-500 text-center mt-4">{errorMessage}</p>}
                 </form>

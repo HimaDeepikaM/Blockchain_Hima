@@ -57,7 +57,7 @@ const ItemDetails = () => {
             <p className="text-xl text-gray-900 mb-4">{price} ETH</p>
             <button 
                 className={`w-full py-2 px-4 text-white font-bold rounded ${isBuying ? 'bg-gray-400' : 'bg-purple-500 hover:bg-purple-400'}`}
-                onClick={()=>buyItem(id, price)} 
+                onClick={()=>buyItem(id,)} 
                 disabled={isBuying}>
                 {buttonText}
             </button>
