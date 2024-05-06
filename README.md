@@ -3,6 +3,7 @@
 This project is developed using [Next.js](https://nextjs.org/), bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). It provides a robust framework for building server-rendered React applications.
 
 ## Getting Started
+Live app link: https://icecreammstore.netlify.app/welcome
 
 ### Prerequisites
 
